@@ -1,242 +1,535 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
-  <title>Yogesh Negi — Mobile DigiCard</title>
-  <meta name="description" content="Vertical mobile/iPad digicard for Yogesh Negi — Frontend Developer (React, Next.js, Node.js)">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
-  <style>
-    /* Mobile-first vertical digicard - dark theme */
-    :root{
-      --bg:#071028;
-      --card-bg: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));
-      --accent1:#7c3aed;
-      --accent2:#06b6d4;
-      --glass: rgba(255,255,255,0.04);
-      --muted:#9aa6bf;
-      --text:#eaf2ff;
-      --radius:18px;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    }
-    html,body{height:100%;margin:0;padding:0;background:var(--bg);-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
-    .wrap{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:18px}
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1,viewport-fit=cover" />
+    <title>Yogesh Negi — Mobile DigiCard</title>
+    <meta
+      name="description"
+      content="Vertical mobile/iPad digicard for Yogesh Negi — Frontend Developer (React, Next.js, Node.js)" />
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+      defer></script>
+    <style>
+      /* Mobile-first vertical digicard - dark theme */
+      :root {
+        --bg: #071028;
+        --card-bg: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.02),
+          rgba(255, 255, 255, 0.006)
+        );
+        --accent1: #7c3aed;
+        --accent2: #06b6d4;
+        --glass: rgba(255, 255, 255, 0.04);
+        --muted: #9aa6bf;
+        --text: #eaf2ff;
+        --radius: 18px;
+        font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+          Roboto, "Helvetica Neue", Arial;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        background: var(--bg);
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+      .wrap {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+      }
 
-    /* card constrained to portrait sizes (phones and iPads) */
-    .card{
-      width:360px;max-width:92vw;border-radius:var(--radius);overflow:hidden;position:relative;
-      background:linear-gradient(180deg, rgba(255,255,255,0.015), rgba(255,255,255,0.005));
-      border:1px solid rgba(255,255,255,0.04);box-shadow:0 20px 40px rgba(2,6,23,0.6);
-      transform-style:preserve-3d;
-    }
+      /* card constrained to portrait sizes (phones and iPads) */
+      .card {
+        width: 360px;
+        max-width: 92vw;
+        border-radius: var(--radius);
+        overflow: hidden;
+        position: relative;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.015),
+          rgba(255, 255, 255, 0.005)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        box-shadow: 0 20px 40px rgba(2, 6, 23, 0.6);
+        transform-style: preserve-3d;
+      }
 
-    /* header */
-    .header{padding:18px 16px 12px;display:flex;gap:12px;align-items:center}
-    .avatar{width:68px;height:68px;border-radius:14px;background:linear-gradient(135deg,var(--accent1),var(--accent2));display:grid;place-items:center;font-weight:700;color:var(--bg);font-size:22px;flex-shrink:0;}
-    .who{flex:1}
-    .who .name{color:var(--text);font-size:18px;font-weight:700}
-    .who .role{color:var(--muted);font-size:13px;margin-top:4px}
-    .meta{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
-    .pill{padding:6px 9px;border-radius:999px;background:rgba(255,255,255,0.02);color:var(--muted);font-size:12px;border:1px solid rgba(255,255,255,0.02)}
+      /* header */
+      .header {
+        padding: 18px 16px 12px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+      }
+      .avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--accent1), var(--accent2));
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+        color: var(--bg);
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .who {
+        flex: 1;
+      }
+      .who .name {
+        color: var(--text);
+        font-size: 18px;
+        font-weight: 700;
+      }
+      .who .role {
+        color: var(--muted);
+        font-size: 13px;
+        margin-top: 4px;
+      }
+      .meta {
+        display: flex;
+        gap: 8px;
+        margin-top: 8px;
+        flex-wrap: wrap;
+      }
+      .pill {
+        padding: 6px 9px;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.02);
+        color: var(--muted);
+        font-size: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
 
-    .sep{height:1px;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.02),transparent);margin:10px 16px;border-radius:1px}
+      .sep {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.02),
+          transparent
+        );
+        margin: 10px 16px;
+        border-radius: 1px;
+      }
 
-    /* body */
-    .body{padding:12px 16px 18px}
-    .section-title{font-weight:700;color:var(--text);font-size:14px;margin-bottom:8px}
-    .skills{display:flex;flex-wrap:wrap;gap:8px}
-    .skill{font-size:13px;padding:8px 10px;border-radius:10px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.005));border:1px solid rgba(255,255,255,0.02);color:var(--muted)}
+      /* body */
+      .body {
+        padding: 12px 16px 18px;
+      }
+      .section-title {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 14px;
+        margin-bottom: 8px;
+      }
+      .skills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .skill {
+        font-size: 13px;
+        padding: 8px 10px;
+        border-radius: 10px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0.005)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.02);
+        color: var(--muted);
+      }
 
-    /* projects accordion */
-    .projects{margin-top:12px}
-    .proj-toggle{display:flex;justify-content:space-between;align-items:center;gap:8px;padding:10px;border-radius:12px;background:rgba(0,0,0,0.14);cursor:pointer;border:1px solid rgba(255,255,255,0.02)}
-    .proj-list{overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.2,.9,.2,1)}
-    .proj-item{padding:10px 10px;border-radius:10px;margin-top:8px;background:linear-gradient(180deg, rgba(255,255,255,0.01), rgba(255,255,255,0.004));border:1px solid rgba(255,255,255,0.02)}
-    .proj-item p{margin:0;color:var(--muted);font-size:13px}
-    .proj-title{font-weight:700;color:var(--text);font-size:13px;margin-bottom:6px}
+      /* projects accordion */
+      .projects {
+        margin-top: 12px;
+      }
+      .proj-toggle {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 8px;
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.14);
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .proj-list {
+        overflow: hidden;
+        max-height: 0;
+        transition: max-height 0.45s cubic-bezier(0.2, 0.9, 0.2, 1);
+      }
+      .proj-item {
+        padding: 10px 10px;
+        border-radius: 10px;
+        margin-top: 8px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.01),
+          rgba(255, 255, 255, 0.004)
+        );
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .proj-item p {
+        margin: 0;
+        color: var(--muted);
+        font-size: 13px;
+      }
+      .proj-title {
+        font-weight: 700;
+        color: var(--text);
+        font-size: 13px;
+        margin-bottom: 6px;
+      }
 
-    /* contact */
-    .contact{display:flex;flex-direction:column;gap:10px;margin-top:12px}
-    .contact a{display:flex;gap:12px;align-items:center;text-decoration:none;color:var(--text);padding:10px;border-radius:10px;background:rgba(255,255,255,0.01);border:1px solid rgba(255,255,255,0.02)}
-    .contact .icon{width:40px;height:40px;border-radius:8px;background:rgba(255,255,255,0.02);display:grid;place-items:center;font-size:18px}
-    .contact small{display:block;color:var(--muted);font-size:12px}
+      /* contact */
+      .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .contact a {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        text-decoration: none;
+        color: var(--text);
+        padding: 10px;
+        border-radius: 10px;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.02);
+      }
+      .contact .icon {
+        width: 40px;
+        height: 40px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.02);
+        display: grid;
+        place-items: center;
+        font-size: 18px;
+      }
+      .contact small {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+      }
 
-    /* footer actions */
-    .actions{display:flex;gap:10px;padding:14px 16px;border-top:1px solid rgba(255,255,255,0.02);background:linear-gradient(180deg, rgba(255,255,255,0.004), transparent)}
-    .btn{flex:1;padding:12px;border-radius:12px;text-align:center;font-weight:700;cursor:pointer;border:1px solid rgba(255,255,255,0.03)}
-    .btn.primary{background:linear-gradient(90deg,var(--accent1),var(--accent2));color:var(--bg);box-shadow:0 8px 18px rgba(124,58,237,0.18)}
-    .btn.ghost{background:transparent;color:var(--text)}
+      /* footer actions */
+      .actions {
+        display: flex;
+        gap: 10px;
+        padding: 14px 16px;
+        border-top: 1px solid rgba(255, 255, 255, 0.02);
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.004),
+          transparent
+        );
+      }
+      .btn {
+        flex: 1;
+        padding: 12px;
+        border-radius: 12px;
+        text-align: center;
+        font-weight: 700;
+        cursor: pointer;
+        border: 1px solid rgba(255, 255, 255, 0.03);
+      }
+      .btn.primary {
+        background: linear-gradient(90deg, var(--accent1), var(--accent2));
+        color: var(--bg);
+        box-shadow: 0 8px 18px rgba(124, 58, 237, 0.18);
+      }
+      .btn.ghost {
+        background: transparent;
+        color: var(--text);
+      }
 
-    /* orbs */
-    .orb{position:absolute;filter:blur(40px);opacity:0.14;border-radius:50%;mix-blend-mode:screen}
-    .orb.a{width:160px;height:160px;left:-40px;top:20px;background:linear-gradient(90deg,var(--accent1),var(--accent2))}
-    .orb.b{width:120px;height:120px;right:-30px;bottom:30px;background:linear-gradient(90deg,var(--accent2),var(--accent1))}
+      /* orbs */
+      .orb {
+        position: absolute;
+        filter: blur(40px);
+        opacity: 0.14;
+        border-radius: 50%;
+        mix-blend-mode: screen;
+      }
+      .orb.a {
+        width: 160px;
+        height: 160px;
+        left: -40px;
+        top: 20px;
+        background: linear-gradient(90deg, var(--accent1), var(--accent2));
+      }
+      .orb.b {
+        width: 120px;
+        height: 120px;
+        right: -30px;
+        bottom: 30px;
+        background: linear-gradient(90deg, var(--accent2), var(--accent1));
+      }
 
-    /* iPad portrait tweaks (wider) */
-    @media (min-width:768px) and (max-width:1024px) and (orientation:portrait){
-      .card{width:420px}
-      .avatar{width:78px;height:78px;font-size:26px}
-    }
+      .avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 14px;
+        overflow: hidden; /* important to crop image inside rounded corners */
+        display: grid;
+        place-items: center;
+        background: linear-gradient(135deg, var(--accent1), var(--accent2));
+        flex-shrink: 0;
+      }
 
-    /* hide on large desktops explicitly */
-    @media (min-width:1100px){
-      body:before{content:'This page is optimized for phones & iPads (portrait). Resize your device.';color:var(--muted);position:fixed;top:12px;left:12px}
-    }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="card" id="card">
-      <div class="orb a" id="orbA"></div>
-      <div class="orb b" id="orbB"></div>
+      .avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* ensures the image covers the avatar without distortion */
+      }
 
-      <div class="header">
-        <div class="avatar">YN</div>
-        <div class="who">
-          <div class="name">Yogesh Negi</div>
-          <div class="role">Software Developer • 3+ years</div>
-          <div class="meta">
-            <div class="pill">React</div>
-            <div class="pill">Next.js</div>
-            <div class="pill">Node.js</div>
+      /* iPad portrait tweaks (wider) */
+      @media (min-width: 768px) and (max-width: 1024px) and (orientation: portrait) {
+        .card {
+          width: 420px;
+        }
+        .avatar {
+          width: 78px;
+          height: 78px;
+          font-size: 26px;
+        }
+      }
+
+      /* hide on large desktops explicitly */
+      @media (min-width: 1100px) {
+        body:before {
+          content: "This page is optimized for phones & iPads (portrait). Resize your device.";
+          color: var(--muted);
+          position: fixed;
+          top: 12px;
+          left: 12px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <div class="card" id="card">
+        <div class="orb a" id="orbA"></div>
+        <div class="orb b" id="orbB"></div>
+
+        <div class="header">
+          <div class="avatar">
+            <img src="MyImage.jpg" alt="Yogesh Negi" />
+          </div>
+
+          <div class="who">
+            <div class="name">Yogesh Negi</div>
+            <div class="role">Software Developer • 3+ years</div>
+            <div class="meta">
+              <div class="pill">React</div>
+              <div class="pill">Next.js</div>
+              <div class="pill">Node.js</div>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div class="sep"></div>
+        <div class="sep"></div>
 
-      <div class="body">
-        <div class="section-title">About</div>
-        <div style="color:var(--muted);font-size:13px">Frontend developer experienced in building responsive and scalable web apps using React, Next.js, and Node.js. Worked at Wemonde & Locad; strong focus on UI, performance and animations.</div>
-
-        <div class="section-title" style="margin-top:12px">Tech Stack</div>
-        <div class="skills">
-          <div class="skill">JavaScript</div>
-          <div class="skill">React.js</div>
-          <div class="skill">Next.js</div>
-          <div class="skill">Node.js</div>
-          <div class="skill">Express</div>
-          <div class="skill">MongoDB</div>
-          <div class="skill">Tailwind</div>
-          <div class="skill">Redux</div>
-        </div>
-
-        <div class="projects">
-          <div class="proj-toggle" id="projToggle">
-            <div style="display:flex;flex-direction:column"><span style="font-weight:700; color: white;">View Projects</span><small style="color:var(--muted);font-size:12px">Aelixar, Pvr, Inox, Loyalty Programz, CMS …</small></div>
-            <div style="font-weight:800 ; color: white;" id="projIcon">+</div>
+        <div class="body">
+          <div class="section-title">About</div>
+          <div style="color: var(--muted); font-size: 13px">
+            Frontend developer experienced in building responsive and scalable
+            web apps using React, Next.js, and Node.js. Worked at Wemonde &
+            Locad; strong focus on UI, performance and animations.
           </div>
-          <div class="proj-list" id="projList">
-            <div class="proj-item">
-              <div class="proj-title">Aelixar — Frontend (Next.js)</div>
-              <p>Built responsive frontend from scratch, integrated Stripe payments and SIM booking flows (eSIM & pSIM).</p>
+
+          <div class="section-title" style="margin-top: 12px">Tech Stack</div>
+          <div class="skills">
+            <div class="skill">JavaScript</div>
+            <div class="skill">React.js</div>
+            <div class="skill">Next.js</div>
+            <div class="skill">Node.js</div>
+            <div class="skill">Express</div>
+            <div class="skill">MongoDB</div>
+            <div class="skill">Tailwind</div>
+            <div class="skill">Redux</div>
+          </div>
+
+          <div class="projects">
+            <div class="proj-toggle" id="projToggle">
+              <div style="display: flex; flex-direction: column">
+                <span style="font-weight: 700; color: white">View Projects</span
+                ><small style="color: var(--muted); font-size: 12px"
+                  >Aelixar, Pvr, Inox, Loyalty Programz, CMS …</small
+                >
+              </div>
+              <div style="font-weight: 800; color: white" id="projIcon">+</div>
             </div>
-            <div class="proj-item">
-              <div class="proj-title">MovieTimeCinemas / PVR — Frontend</div>
-              <p>Payment integrations (Razorpay), promotions, ad-sales feature, and UI performance optimization.</p>
+            <div class="proj-list" id="projList">
+              <div class="proj-item">
+                <div class="proj-title">Aelixar — Frontend (Next.js)</div>
+                <p>
+                  Built responsive frontend from scratch, integrated Stripe
+                  payments and SIM booking flows (eSIM & pSIM).
+                </p>
+              </div>
+              <div class="proj-item">
+                <div class="proj-title">MovieTimeCinemas / PVR — Frontend</div>
+                <p>
+                  Payment integrations (Razorpay), promotions, ad-sales feature,
+                  and UI performance optimization.
+                </p>
+              </div>
+              <div class="proj-item">
+                <div class="proj-title">Loyalty Programz — CMS & Web Apps</div>
+                <p>
+                  Built multiple CMS platforms and web apps serving 10k+ users;
+                  focus on UX and admin workflows.
+                </p>
+              </div>
+              <div class="proj-item">
+                <div class="proj-title">
+                  Campaign Management Tool — Full Stack
+                </div>
+                <p>
+                  Sales & billing system using React, Node, Express, MongoDB and
+                  AWS with invoicing & reporting features.
+                </p>
+              </div>
             </div>
-            <div class="proj-item">
-              <div class="proj-title">Loyalty Programz — CMS & Web Apps</div>
-              <p>Built multiple CMS platforms and web apps serving 10k+ users; focus on UX and admin workflows.</p>
-            </div>
-            <div class="proj-item">
-              <div class="proj-title">Campaign Management Tool — Full Stack</div>
-              <p>Sales & billing system using React, Node, Express, MongoDB and AWS with invoicing & reporting features.</p>
-            </div>
+          </div>
+
+          <div class="contact">
+            <a href="mailto:yyogesh.singh.negi@gmail.com">
+              <div class="icon">📧</div>
+              <div>
+                <div style="font-weight: 700">yyogesh.singh.negi@gmail.com</div>
+                <small>Email</small>
+              </div>
+            </a>
+
+            <a href="tel:+918745073655">
+              <div class="icon">📱</div>
+              <div>
+                <div style="font-weight: 700">+91 87450 73655</div>
+                <small>Phone</small>
+              </div>
+            </a>
+
+            <a
+              href="https://linkedin.com/in/yogesh-negi-7b8568302"
+              target="_blank">
+              <div class="icon">🔗</div>
+              <div>
+                <div style="font-weight: 700">
+                  linkedin.com/in/yogesh-negi-7b8568302
+                </div>
+                <small>LinkedIn</small>
+              </div>
+            </a>
+
+            <a href="https://github.com/itsyogeshnegi" target="_blank">
+              <div class="icon">🐙</div>
+              <div>
+                <div style="font-weight: 700">github.com/itsyogeshnegi</div>
+                <small>GitHub</small>
+              </div>
+            </a>
           </div>
         </div>
 
-        <div class="contact">
-          <a href="mailto:yyogesh.singh.negi@gmail.com">
-            <div class="icon">📧</div>
-            <div>
-              <div style="font-weight:700">yyogesh.singh.negi@gmail.com</div>
-              <small>Email</small>
-            </div>
-          </a>
-
-          <a href="tel:+918745073655">
-            <div class="icon">📱</div>
-            <div>
-              <div style="font-weight:700">+91 87450 73655</div>
-              <small>Phone</small>
-            </div>
-          </a>
-
-          <a href="https://linkedin.com/in/yogesh-negi-7b8568302" target="_blank">
-            <div class="icon">🔗</div>
-            <div>
-              <div style="font-weight:700">linkedin.com/in/yogesh-negi-7b8568302</div>
-              <small>LinkedIn</small>
-            </div>
-          </a>
-
-          <a href="https://github.com/itsyogeshnegi" target="_blank">
-            <div class="icon">🐙</div>
-            <div>
-              <div style="font-weight:700">github.com/itsyogeshnegi</div>
-              <small>GitHub</small>
-            </div>
-          </a>
+        <div class="actions">
+          <div class="btn primary" id="hireBtn">Hire / Contact</div>
+          <div class="btn ghost" id="downloadBtn">Download CV</div>
         </div>
-      </div>
-
-      <div class="actions">
-        <div class="btn primary" id="hireBtn">Hire / Contact</div>
-        <div class="btn ghost" id="downloadBtn">Download CV</div>
       </div>
     </div>
-  </div>
+    <script>
+      // GSAP entrance & floating 3D animation
+      window.addEventListener("load", () => {
+        const card = document.querySelector(".card");
+        const orbA = document.getElementById("orbA");
+        const orbB = document.getElementById("orbB");
 
-  <script>
-    // GSAP subtle orbs + entrance
-    window.addEventListener('load', ()=>{
-      gsap.from('.card',{y:18,opacity:0,duration:0.7,ease:'power3.out'});
-      gsap.to('#orbA',{y:10,repeat:-1,yoyo:true,duration:3,ease:'sine.inOut'});
-      gsap.to('#orbB',{y:-10,repeat:-1,yoyo:true,duration:4,ease:'sine.inOut'});
-    });
+        // Entrance animation
+        gsap.from(card, {
+          y: 18,
+          opacity: 0,
+          duration: 0.8,
+          ease: "power3.out",
+        });
 
-    // Projects expand
-    const projToggle = document.getElementById('projToggle');
-    const projList = document.getElementById('projList');
-    const projIcon = document.getElementById('projIcon');
-    let open=false;
-    projToggle.addEventListener('click', ()=>{
-      open = !open;
-      if(open){
-        projList.style.maxHeight = projList.scrollHeight + 'px';
-        projIcon.textContent = '-';
-        gsap.fromTo('.proj-item',{y:6,opacity:0},{y:0,opacity:1,duration:0.45,stagger:0.06});
-      } else {
-        projList.style.maxHeight = '0px';
-        projIcon.textContent = '+';
-      }
-    });
+        // Floating rotation (3D feel)
+        gsap.to(card, {
+          rotateY: 5,
+          rotateX: -5,
+          y: -6,
+          duration: 3,
+          ease: "sine.inOut",
+          yoyo: true,
+          repeat: -1,
+        });
 
-    // Hire button -> opens mail client
-    document.getElementById('hireBtn').addEventListener('click', ()=>{
-      window.location.href = 'mailto:yyogesh.singh.negi@gmail.com?subject=Opportunity%20for%20Yogesh%20Negi';
-    });
-
-    // Download CV (uses embedded link to the file if hosted). For canvas preview, this will simply open the PDF in a new tab if available.
-    document.getElementById('downloadBtn').addEventListener('click', ()=>{
-      const url = 'yogesh-cv.pdf'; // ensure file is hosted alongside this HTML when deploying
-      window.open(url, '_blank');
-    });
-
-    // Prevent large-screen tilt interactions — card stays static on desktop
-    const mq = window.matchMedia('(min-width:1100px)');
-    if(!mq.matches){
-      // small parallax on touch move
-      let startX=0,startY=0;
-      document.querySelector('.card').addEventListener('touchstart', (e)=>{startX=e.touches[0].clientX;startY=e.touches[0].clientY});
-      document.querySelector('.card').addEventListener('touchmove', (e)=>{
-        const dx = (e.touches[0].clientX - startX)/30;
-        const dy = (e.touches[0].clientY - startY)/30;
-        gsap.to('.card',{rotationY:dx,rotationX:-dy,duration:0.3,ease:'power3.out'});
+        // Soft orb movement
+        gsap.to(orbA, {
+          y: 10,
+          duration: 4,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
+        gsap.to(orbB, {
+          y: -10,
+          duration: 5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+        });
       });
-      document.querySelector('.card').addEventListener('touchend', ()=>{gsap.to('.card',{rotationY:0,rotationX:0,duration:0.6,ease:'elastic.out(1,0.6)'});});
-    }
-  </script>
-</body>
+
+      // Projects accordion
+      const projToggle = document.getElementById("projToggle");
+      const projList = document.getElementById("projList");
+      const projIcon = document.getElementById("projIcon");
+      let open = false;
+      projToggle.addEventListener("click", () => {
+        open = !open;
+        if (open) {
+          projList.style.maxHeight = projList.scrollHeight + "px";
+          projIcon.textContent = "-";
+          gsap.fromTo(
+            ".proj-item",
+            { y: 6, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.45, stagger: 0.06 }
+          );
+        } else {
+          projList.style.maxHeight = "0px";
+          projIcon.textContent = "+";
+        }
+      });
+
+      // Hire button mail action
+      document.getElementById("hireBtn").addEventListener("click", () => {
+        window.location.href =
+          "mailto:yyogesh.singh.negi@gmail.com?subject=Opportunity%20for%20Yogesh%20Negi";
+      });
+
+      // Download CV (opens PDF)
+      document.getElementById("downloadBtn").addEventListener("click", () => {
+        const url = "yogesh-cv.pdf";
+        window.open(url, "_blank");
+      });
+    </script>
+  </body>
 </html>
